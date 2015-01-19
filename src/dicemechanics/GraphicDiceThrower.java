@@ -107,7 +107,7 @@ public class GraphicDiceThrower extends JFrame {
         labelGeneric.setText("Generic dice");
 
         labelD.setText("D"); // For generic dices
-        
+
         outputArea.setRows(5);
         outputArea.setColumns(5);
         outputArea.setText("Welcome to my automatic dice thrower! ~~~~ \n");
@@ -124,8 +124,8 @@ public class GraphicDiceThrower extends JFrame {
                 int rolled = DiceTemplate.getTemplate().rollDice2();
                 output = "You have thrown a 2-faces dice, and you got a: "
                         + rolled + "!";
-                outputArea.append(output + "\n" +
-                        " ------------------------------------ \n");
+                outputArea.append(output + "\n"
+                        + " ------------------------------------ \n");
             }
         });
 
@@ -137,8 +137,8 @@ public class GraphicDiceThrower extends JFrame {
                 int rolled = DiceTemplate.getTemplate().rollDice3();
                 output = "You have thrown a 3-faces dice, and you got a: "
                         + rolled + "!";
-                outputArea.append(output + "\n" +
-                        " ------------------------------------ \n");
+                outputArea.append(output + "\n"
+                        + " ------------------------------------ \n");
             }
         });
 
@@ -150,8 +150,8 @@ public class GraphicDiceThrower extends JFrame {
                 int rolled = DiceTemplate.getTemplate().rollDice4();
                 output = "You have thrown a 4-faces dice, and you got a: "
                         + rolled + "!";
-                outputArea.append(output + "\n" +
-                        " ------------------------------------ \n");
+                outputArea.append(output + "\n"
+                        + " ------------------------------------ \n");
             }
         });
 
@@ -163,8 +163,8 @@ public class GraphicDiceThrower extends JFrame {
                 int rolled = DiceTemplate.getTemplate().rollDice6();
                 output = "You have thrown a 6-faces dice, and you got a: "
                         + rolled + "!";
-                outputArea.append(output + "\n" +
-                        " ------------------------------------ \n");
+                outputArea.append(output + "\n"
+                        + " ------------------------------------ \n");
             }
         });
 
@@ -176,8 +176,8 @@ public class GraphicDiceThrower extends JFrame {
                 int rolled = DiceTemplate.getTemplate().rollDice8();
                 output = "You have thrown a 8-faces dice, and you got a: "
                         + rolled + "!";
-                outputArea.append(output + "\n" +
-                        " ------------------------------------ \n");
+                outputArea.append(output + "\n"
+                        + " ------------------------------------ \n");
             }
         });
 
@@ -189,8 +189,8 @@ public class GraphicDiceThrower extends JFrame {
                 int rolled = DiceTemplate.getTemplate().rollDice10();
                 output = "You have thrown a 10-faces dice, and you got a: "
                         + rolled + "!";
-                outputArea.append(output + "\n" +
-                        " ------------------------------------ \n");
+                outputArea.append(output + "\n"
+                        + " ------------------------------------ \n");
             }
         });
 
@@ -202,8 +202,8 @@ public class GraphicDiceThrower extends JFrame {
                 int rolled = DiceTemplate.getTemplate().rollDice12();
                 output = "You have thrown a 12-faces dice, and you got a: "
                         + rolled + "!";
-                outputArea.append(output + "\n" +
-                        " ------------------------------------ \n ");
+                outputArea.append(output + "\n"
+                        + " ------------------------------------ \n ");
             }
         });
 
@@ -215,8 +215,8 @@ public class GraphicDiceThrower extends JFrame {
                 int rolled = DiceTemplate.getTemplate().rollDice20();
                 output = "You have thrown a 20-faces dice, and you got a: "
                         + rolled + "!";
-                outputArea.append(output + "\n" +
-                        " ------------------------------------ \n");
+                outputArea.append(output + "\n"
+                        + " ------------------------------------ \n");
             }
         });
 
@@ -228,8 +228,8 @@ public class GraphicDiceThrower extends JFrame {
                 int rolled = DiceTemplate.getTemplate().rollDice100();
                 output = "You have thrown a 100-faces dice, and you got a: "
                         + rolled + "!";
-                outputArea.append(output + "\n" +
-                        " ------------------------------------ \n");
+                outputArea.append(output + "\n"
+                        + " ------------------------------------ \n");
             }
         });
 
@@ -291,7 +291,9 @@ public class GraphicDiceThrower extends JFrame {
     }
 
     private void packedPanel() {
-        
+
+        setPanelLayouts();
+
         //Pack: [1d8, 1d10, 1d12]
         panel1d8to1d12.add(panel1d8, BorderLayout.NORTH);
         panel1d8to1d12.add(panel1d10, BorderLayout.CENTER);
@@ -316,6 +318,13 @@ public class GraphicDiceThrower extends JFrame {
         this.getContentPane().add(panel1d2, BorderLayout.NORTH);
         this.getContentPane().add(panel1d3toGeneric, BorderLayout.CENTER);
         this.getContentPane().add(scrollableOutput, BorderLayout.SOUTH);
+    }
+
+    private void setPanelLayouts() {
+        panel1d3toGeneric.setLayout(new BorderLayout());
+        panel1d4to1d100.setLayout(new BorderLayout());
+        panel1d6to1d20.setLayout(new BorderLayout());
+        panel1d8to1d12.setLayout(new BorderLayout());
     }
 
     public static void main(String[] args) {
