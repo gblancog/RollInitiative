@@ -37,6 +37,7 @@ public class DiceTemplate {
         dice10 = new Dice(10);
         dice12 = new Dice(12);
         dice20 = new Dice(20);
+        dice100 = new Dice(100);
     }
 
     public static DiceTemplate getTemplate() {
