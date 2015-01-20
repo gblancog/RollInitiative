@@ -11,11 +11,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.text.DefaultCaret;
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -23,67 +25,64 @@ import javax.swing.text.DefaultCaret;
  */
 public class GraphicDiceThrower extends JFrame {
 
-    /* TODO: Add images to JPanels: 
-     http://stackoverflow.com/questions/299495/how-to-add-an-image-to-a-jpanel
-     */
     // Description labels
-    JLabel label1d2 = new JLabel();
-    JLabel label1d3 = new JLabel();
-    JLabel label1d4 = new JLabel();
-    JLabel label1d6 = new JLabel();
-    JLabel label1d8 = new JLabel();
-    JLabel label1d10 = new JLabel();
-    JLabel label1d12 = new JLabel();
-    JLabel label1d20 = new JLabel();
-    JLabel label1d100 = new JLabel();
-    JLabel labelGeneric = new JLabel();
-    JLabel labelD = new JLabel();
+    private JLabel label1d2 = new JLabel();
+    private JLabel label1d3 = new JLabel();
+    private JLabel label1d4 = new JLabel();
+    private JLabel label1d6 = new JLabel();
+    private JLabel label1d8 = new JLabel();
+    private JLabel label1d10 = new JLabel();
+    private JLabel label1d12 = new JLabel();
+    private JLabel label1d20 = new JLabel();
+    private JLabel label1d100 = new JLabel();
+    private JLabel labelGeneric = new JLabel();
+    private JLabel labelD = new JLabel();
 
     // Roll buttons
-    JButton button1d2 = new JButton();
-    JButton button1d3 = new JButton();
-    JButton button1d4 = new JButton();
-    JButton button1d6 = new JButton();
-    JButton button1d8 = new JButton();
-    JButton button1d10 = new JButton();
-    JButton button1d12 = new JButton();
-    JButton button1d20 = new JButton();
-    JButton button1d100 = new JButton();
-    JButton buttonGeneric = new JButton();
+    private JButton button1d2 = new JButton();
+    private JButton button1d3 = new JButton();
+    private JButton button1d4 = new JButton();
+    private JButton button1d6 = new JButton();
+    private JButton button1d8 = new JButton();
+    private JButton button1d10 = new JButton();
+    private JButton button1d12 = new JButton();
+    private JButton button1d20 = new JButton();
+    private JButton button1d100 = new JButton();
+    private JButton buttonGeneric = new JButton();
 
     // Dice panels
-    JPanel panel1d2 = new JPanel();
-    JPanel panel1d3 = new JPanel();
-    JPanel panel1d4 = new JPanel();
-    JPanel panel1d6 = new JPanel();
-    JPanel panel1d8 = new JPanel();
-    JPanel panel1d10 = new JPanel();
-    JPanel panel1d12 = new JPanel();
-    JPanel panel1d20 = new JPanel();
-    JPanel panel1d100 = new JPanel();
-    JPanel panelGeneric = new JPanel();
-    JPanel panelD = new JPanel();
+    private JPanel panel1d2 = new JPanel();
+    private JPanel panel1d3 = new JPanel();
+    private JPanel panel1d4 = new JPanel();
+    private JPanel panel1d6 = new JPanel();
+    private JPanel panel1d8 = new JPanel();
+    private JPanel panel1d10 = new JPanel();
+    private JPanel panel1d12 = new JPanel();
+    private JPanel panel1d20 = new JPanel();
+    private JPanel panel1d100 = new JPanel();
+    private JPanel panelGeneric = new JPanel();
+    private JPanel panelD = new JPanel();
 
     // Generic panel textfields
-    JTextField dices = new JTextField(3);
-    JTextField sides = new JTextField(3);
+    private JTextField dices = new JTextField(3);
+    private JTextField sides = new JTextField(3);
 
     // Rolling result output text
-    String output;
+    private String output;
 
     // Output showing textarea for user interface
-    JTextArea outputArea = new JTextArea();
-    JScrollPane scrollableOutput = new JScrollPane(outputArea);
+    private JTextArea outputArea = new JTextArea();
+    private JScrollPane scrollableOutput = new JScrollPane(outputArea);
 
     // Element packing panels
-    JPanel panel1d3toGeneric = new JPanel();
-    JPanel panel1d4to1d100 = new JPanel();
-    JPanel panel1d6to1d20 = new JPanel();
-    JPanel panel1d8to1d12 = new JPanel();
+    private JPanel panel1d3toGeneric = new JPanel();
+    private JPanel panel1d4to1d100 = new JPanel();
+    private JPanel panel1d6to1d20 = new JPanel();
+    private JPanel panel1d8to1d12 = new JPanel();
 
     public GraphicDiceThrower() {
         super("Graphic dice thrower");
-        this.setSize(400, 700);
+        this.setSize(350, 500);
         prepareLayout();
     }
 
@@ -112,6 +111,10 @@ public class GraphicDiceThrower extends JFrame {
         outputArea.setColumns(5);
         outputArea.setText("Welcome to my automatic dice thrower! ~~~~ \n");
         outputArea.setEditable(false);
+        outputArea.setLineWrap(true);
+
+        scrollableOutput.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
+        scrollableOutput.setBorder(new EmptyBorder(10, 10, 10, 10));
     }
 
     private void prepareRollButtons() {
@@ -239,17 +242,39 @@ public class GraphicDiceThrower extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int nDices = new Integer(dices.getText());
-                int nSides = new Integer(sides.getText());
+                try {
+                    int nDices = new Integer(dices.getText());
+                    int nSides = new Integer(sides.getText());
 
-                for (int i = 0; i < nDices; i++) {
-                    int rolled = DiceTemplate.getTemplate().rollGenericDice(nSides);
-                    output = "You have thrown a " + nSides + "-faces dice, and "
-                            + "you got a: " + rolled + "!";
-                    outputArea.append(output + "\n");
+                    if (nDices <= 0 || nSides <= 0) {
+                        throw new OutOfRandomBoundsException();
+                    }
+
+                    for (int i = 0; i < nDices; i++) {
+                        int rolled = DiceTemplate.getTemplate().rollGenericDice(nSides);
+                        output = "You have thrown a " + nSides + "-faces dice, and "
+                                + "you got a: " + rolled + "!";
+                        outputArea.append(output + "\n");
+                    }
+                    outputArea.append(" ------------------------------------ \n");
+                } catch (NumberFormatException ex1) {
+                    JOptionPane frame = new JOptionPane();
+                    JOptionPane.showMessageDialog(frame,
+                            "Please, put two numbers on those input boxes!",
+                            "Rolling low on intelligence",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (OutOfRandomBoundsException ex2) {
+                    JOptionPane frame = new JOptionPane();
+                    JOptionPane.showMessageDialog(frame,
+                            "Please, put two positive valid numbers!",
+                            "Rolling high on charisma",
+                            JOptionPane.ERROR_MESSAGE);
+                } finally {
+                    dices.setText("");
+                    sides.setText("");
                 }
-                outputArea.append(" ------------------------------------ \n");
             }
+
         });
     }
 
@@ -331,5 +356,12 @@ public class GraphicDiceThrower extends JFrame {
         GraphicDiceThrower frame = new GraphicDiceThrower();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+    }
+
+    private class OutOfRandomBoundsException extends Exception {
+
+        public OutOfRandomBoundsException() {
+            super();
+        }
     }
 }
