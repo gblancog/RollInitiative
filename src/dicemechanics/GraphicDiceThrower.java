@@ -115,6 +115,7 @@ public class GraphicDiceThrower extends JFrame {
 
         scrollableOutput.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_NEVER);
         scrollableOutput.setBorder(new EmptyBorder(10, 10, 10, 10));
+        new SmartScroller(scrollableOutput);
     }
 
     private void prepareRollButtons() {
