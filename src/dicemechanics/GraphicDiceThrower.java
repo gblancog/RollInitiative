@@ -5,6 +5,8 @@
  */
 package dicemechanics;
 
+import utilities.SmartScroller;
+import utilities.OutOfRandomBoundsException;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -357,12 +359,5 @@ public class GraphicDiceThrower extends JFrame {
         GraphicDiceThrower frame = new GraphicDiceThrower();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-    }
-
-    private class OutOfRandomBoundsException extends Exception {
-
-        public OutOfRandomBoundsException() {
-            super();
-        }
     }
 }

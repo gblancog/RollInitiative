@@ -1,4 +1,4 @@
-package dicemechanics;
+package utilities;
 
 import java.awt.Component;
 import java.awt.event.*;
